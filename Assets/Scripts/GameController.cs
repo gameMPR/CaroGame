@@ -28,52 +28,54 @@ public class GameController : MonoBehaviour
 
     void AddListener()
     {
-        foreach(Button btn in btnList)
+        foreach (Button btn in btnList)
         {
-            btn.onClick.AddListener( () => ClickButton());
-            
+            btn.onClick.AddListener(() => ClickButton());
+
         }
-    }
 
-    void ClickButton()
-    {
-        string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
-        Debug.Log("this buttons was click: " + name);
-        click = true;
-        
-        if (click)
+
+        void ClickButton()
         {
-            if (playerTurn)
-            {
-                playerTurn = !playerTurn;
-                UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "X";
-                UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
+            string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+            int index = int.Parse(name);
+            Debug.Log("this buttons was click: " + index);
+            click = true;
 
-            }
-            else
+            if (click)
             {
-                playerTurn = !playerTurn;
-                UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "O";
-                UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
-
-            }
-        }
-        Debug.Log("this buttons was click: " + name);
-    }
-
-    void checkWin()
-    {
-        GameObject[] objectList = GameObject.FindGameObjectsWithTag("ButtonChess");
-        for (int i = 0; i < objectList.Length; i++)
-        {
-            for(int j = 0; j < 15; j++)
-            {
-                if(i%j == 0)
+                if (playerTurn)
                 {
+                    playerTurn = !playerTurn;
+                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "X";
+                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
+
+                }
+                else
+                {
+                    playerTurn = !playerTurn;
+                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "O";
+                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
 
                 }
             }
+            Debug.Log("this buttons was click: " + name);
         }
-    }
 
+        void checkWin()
+        {
+            GameObject[] objectList = GameObject.FindGameObjectsWithTag("ButtonChess");
+            for (int i = 0; i < objectList.Length; i++)
+            {
+                for (int j = 0; j < 15; j++)
+                {
+                    if (i % j == 0)
+                    {
+
+                    }
+                }
+            }
+        }
+
+    }
 }
