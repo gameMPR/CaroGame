@@ -95,32 +95,31 @@ public class GameController : MonoBehaviour
         int countLeft = 0;
         int countRight = 0;
 
-            for (int i = posX; i >= 0; i--)
-            {
-                if (matrix[posY][i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
-                {
-                    countLeft++;
-                }
-                else
-                {
-                    break;
-                }
-            }
-        if (posX < 14)
+        for (int i = posX; i >= 0; i--)
         {
-            for (int i = posX + 1; i < 15; i++)
+            if (matrix[posY][i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
             {
-                if (matrix[posY][i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
-                {
-                    countRight++;
-                }
-                else
-                {
-                    break;
-                }
+                countLeft++;
+            }
+            else
+            {
+                break;
             }
         }
-            
+
+        for (int i = posX + 1; i < 14; i++)
+        {
+            if (matrix[posY][i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
+            {
+                countRight++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+
 
         return countLeft + countRight == 5;
     }
@@ -131,34 +130,36 @@ public class GameController : MonoBehaviour
         int countUp = 0;
         int countDown = 0;
 
-            for (int i = posY; i >= 0; i--)
+        for (int i = posY; i >= 0; i--)
+        {
+            if (matrix[i][posX].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
             {
-                if (matrix[i][posX].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
-                {
-                    countUp++;
-                }
-                else
-                {
-                    break;
-                }
+                countUp++;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+
+        for (int i = posY + 1; i < 14; i++)
+        {
+
+            if (matrix[i][posX].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
+            {
+                countDown++;
+            }
+            else
+            {
+                break;
             }
 
-            if (posY < 13)
-            {
-                for (int i = posY + 1; i < 15; i++)
-                {
-                    if (matrix[i][posX].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
-                    {
-                        countDown++;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
-            
-        
+
+        }
+
+
+
         return countUp + countDown == 5;
 
     }
