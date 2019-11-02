@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AddButtons.cs" />
+    <Compile Include="Assets\Scripts\ButtonSingle.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>G:/ProjectGitHub/CaroGame/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>

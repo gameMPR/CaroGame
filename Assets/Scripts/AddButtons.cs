@@ -10,7 +10,8 @@ public class AddButtons : MonoBehaviour
 
     [SerializeField]
     private Transform panel;
-
+    public int posX;
+    public int posY;
     GameObject btn;
 
     public Text btnText;
