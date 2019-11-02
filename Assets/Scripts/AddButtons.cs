@@ -23,7 +23,6 @@ public class AddButtons : MonoBehaviour
             btn.name = "" + i;
             btn.transform.SetParent(panel, false);
             btnText = btn.GetComponentInChildren<Text>();
-            
         }
     }
 
