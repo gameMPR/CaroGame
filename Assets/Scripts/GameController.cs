@@ -28,17 +28,17 @@ public class GameController : MonoBehaviour
             {
                 matrix[i].Add(objectList[(i * 15) + j].GetComponent<Button>());
                 // xác định tọa độ x y của nút
-                objectList[(i * 15) + j].GetComponent<ButtonSingle>().posX =j;
+                objectList[(i * 15) + j].GetComponent<ButtonSingle>().posX = j;
                 objectList[(i * 15) + j].GetComponent<ButtonSingle>().posY = i;
                 //end
-                
+
             }
         }
     }
-   
+
     void AddListener1()
     {
-        foreach(List<Button> btn in matrix)
+        foreach (List<Button> btn in matrix)
         {
             foreach (Button button in btn)
             {
@@ -46,35 +46,35 @@ public class GameController : MonoBehaviour
                 button.onClick.AddListener(() => EndGame(button));
             }
         }
-        
+
     }
 
-        void ClickButton()
+    void ClickButton()
+    {
+        string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
+        int index = int.Parse(name);
+        click = true;
+
+        if (click)
         {
-            string name = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.name;
-            int index = int.Parse(name);
-            click = true;
-
-            if (click)
+            if (playerTurn)
             {
-                if (playerTurn)
-                {
-                    playerTurn = !playerTurn;
-                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "X";
-                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
+                playerTurn = !playerTurn;
+                UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "X";
+                UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
 
-                }
-                else
-                {
-                    playerTurn = !playerTurn;
-                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "O";
-                    UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
-
-                }
             }
-        
-        Debug.Log("this buttons was click: " + name);
+            else
+            {
+                playerTurn = !playerTurn;
+                UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Text>().text = "O";
+                UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>().interactable = false;
+
+            }
         }
+
+        Debug.Log("this buttons was click: " + name);
+    }
 
     private void EndGame(Button button)
     {
@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("End Game");
         }
-        
+
     }
     private bool isEndGame(Button button)
     {
@@ -90,12 +90,14 @@ public class GameController : MonoBehaviour
     }
     private bool isEndNgang(Button button)
     {
-        int posX= button.GetComponent<ButtonSingle>().posX ;
+        int posX = button.GetComponent<ButtonSingle>().posX;
         int posY = button.GetComponent<ButtonSingle>().posY;
         int countLeft = 0;
-        for(int i = posX; i >= 0; i--)
+        int countRight = 0;
+
+        for (int i = posX; i >= 0; i--)
         {
-            if (matrix[posY][i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text)) 
+            if (matrix[posY][i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
             {
                 countLeft++;
             }
@@ -104,8 +106,8 @@ public class GameController : MonoBehaviour
                 break;
             }
         }
-        int countRight = 0;
-        for (int i = posX + 1; i < 15; i++)
+
+        for (int i = posX + 1; i < 14; i++)
         {
             if (matrix[posY][i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
             {
@@ -116,13 +118,18 @@ public class GameController : MonoBehaviour
                 break;
             }
         }
-        return countLeft+countRight==5;
+
+
+
+        return countLeft + countRight == 5;
     }
     private bool isEndDoc(Button button)
     {
         int posX = button.GetComponent<ButtonSingle>().posX;
         int posY = button.GetComponent<ButtonSingle>().posY;
         int countUp = 0;
+        int countDown = 0;
+
         for (int i = posY; i >= 0; i--)
         {
             if (matrix[i][posX].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
@@ -134,9 +141,11 @@ public class GameController : MonoBehaviour
                 break;
             }
         }
-        int countDown = 0;
-        for (int i = posY + 1; i < 15; i++)
+
+
+        for (int i = posY + 1; i < 14; i++)
         {
+
             if (matrix[i][posX].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
             {
                 countDown++;
@@ -145,48 +154,118 @@ public class GameController : MonoBehaviour
             {
                 break;
             }
+
+
         }
+
+
+
         return countUp + countDown == 5;
-       
+
     }
     private bool isEndCheoChinh(Button button)
     {
         int posX = button.GetComponent<ButtonSingle>().posX;
         int posY = button.GetComponent<ButtonSingle>().posY;
+
         int countUp = 0;
-        for (int i = 0; i < posY; i++)
+        int countDown = 0;
+
+        for (int i = 0; i < 25; i++)
         {
-            if (matrix[posY + i][posX + i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
-            {
-                countUp++;
-                Debug.Log("countUp:" + countUp);
-            }
-            else
+            if (posX + i > 14 || posY + i > 13)
             {
                 break;
             }
+            else
+            {
+                if (matrix[posY + i][posX + i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
+                {
+                    countUp++;
+                }
+                else
+                {
+                    break;
+                }
+            }
 
         }
-
-        int countDown = 0;
         for (int i = 1; i < 25; i++)
         {
-            if (matrix[posY - i][posX - i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
-            {
-                countDown++;
-                Debug.Log("countDown:" + countDown);
-            }
-            else
+            if (posX - i < 0 || posY - i < 0)
             {
                 break;
             }
+            else
+            {
+                if (matrix[posY - i][posX - i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
+                {
+                    countDown++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
 
         }
-        return countUp + countDown == 5;    
+
+        int count = countUp + countDown;
+        Debug.Log("count" + count);
+        return countUp + countDown == 5;
     }
     private bool isEndCheoPhu(Button button)
     {
-        return false;
+        int posX = button.GetComponent<ButtonSingle>().posX;
+        int posY = button.GetComponent<ButtonSingle>().posY;
+
+        int countUp = 0;
+        int countDown = 0;
+
+        for (int i = 0; i < 25; i++)
+        {
+            if (posX + i > 14 || posY - i < 0)
+            {
+                break;
+            }
+            else
+            {
+                if (matrix[posY - i][posX + i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
+                {
+                    countUp++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+        }
+        for (int i = 1; i < 25; i++)
+        {
+            if (posX - i < 0 || posY + i > 13)
+            {
+                break;
+            }
+            else
+            {
+                if (matrix[posY + i][posX - i].GetComponentInChildren<Text>().text.Equals(button.GetComponentInChildren<Text>().text))
+                {
+                    countDown++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+
+        }
+
+        int count = countUp + countDown;
+        Debug.Log("count" + count);
+        return countUp + countDown == 5;
     }
 
 }
