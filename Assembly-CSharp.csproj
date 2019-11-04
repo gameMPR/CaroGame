@@ -63,9 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AddButtons.cs" />
-    <Compile Include="Assets\Scripts\ButtonSingle.cs" />
-    <Compile Include="Assets\Scripts\GameController.cs" />
+    <Compile Include="Assets\Scripts\PvE\AiControler.cs" />
+    <Compile Include="Assets\Scripts\PvP\AddButtons.cs" />
+    <Compile Include="Assets\Scripts\PvP\ButtonSingle.cs" />
+    <Compile Include="Assets\Scripts\PvP\GameController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>G:/ProjectGitHub/CaroGame/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
