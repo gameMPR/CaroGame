@@ -80,6 +80,7 @@ public class GameController : MonoBehaviour
     {
         if (isEndGame(button))
         {
+            // show winner 
             Debug.Log("End Game");
         }
 
@@ -212,7 +213,7 @@ public class GameController : MonoBehaviour
         }
 
         int count = countUp + countDown;
-        Debug.Log("count" + count);
+//   count = 5 is win
         return countUp + countDown == 5;
     }
     private bool isEndCheoPhu(Button button)
@@ -264,7 +265,7 @@ public class GameController : MonoBehaviour
         }
 
         int count = countUp + countDown;
-        Debug.Log("count" + count);
+       // count =5 is win
         return countUp + countDown == 5;
     }
 
