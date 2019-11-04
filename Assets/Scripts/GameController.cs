@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
 
     private List<List<Button>> matrix;
 
-    public GameObject restartButton;
+    public GameObject restartButton;Button restartBtn;
         
     public GameObject TextObject;
     Text winText;
@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
     {
         winUI.SetActive(false);
         winText = TextObject.GetComponent<Text>();
+        restartBtn = restartButton.GetComponent<Button>();
+        
         getButtons();
         AddListener1();
     }
@@ -48,6 +50,7 @@ public class GameController : MonoBehaviour
 
     void AddListener1()
     {
+        restartBtn.onClick.AddListener(() => restart());
         foreach (List<Button> btn in matrix)
         {
             foreach (Button button in btn)
