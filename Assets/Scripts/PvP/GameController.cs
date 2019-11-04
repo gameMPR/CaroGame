@@ -2,17 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
 
     bool playerTurn = true;
     bool click = false;
+    bool win = false;
+    public GameObject winUI;
 
     private List<List<Button>> matrix;
+
+    public GameObject restartButton;
+        
+    public GameObject TextObject;
+    Text winText;
     // Start is called before the first frame update
     void Start()
     {
+        winUI.SetActive(false);
+        winText = TextObject.GetComponent<Text>();
         getButtons();
         AddListener1();
     }
@@ -80,12 +90,35 @@ public class GameController : MonoBehaviour
     {
         if (isEndGame(button))
         {
-            // show winner 
+            win = true;
+            if (win)
+            {
+                winUI.SetActive(true);
+            }
             Debug.Log("End Game");
+            if (button.GetComponentInChildren<Text>().text.Equals("X"))
+            {
+                Debug.Log("Player 1 win");
+                winText.text = ("Player 1 win");
+               
+            }
+            if (button.GetComponentInChildren<Text>().text.Equals("O"))
+            {
+                Debug.Log("Player 2 win");
+                winText.text = ("Player 2 win");
+                
+            }
+            
+        }
+        
+        
+        if (win == false)
+        {
+            winUI.SetActive(false);
         }
 
     }
-    private bool isEndGame(Button button)
+    public bool isEndGame(Button button)
     {
         return isEndDoc(button) || isEndNgang(button) || isEndCheoChinh(button) || isEndCheoPhu(button);
     }
@@ -269,5 +302,9 @@ public class GameController : MonoBehaviour
         return countUp + countDown == 5;
     }
 
+    public void restart()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
 
